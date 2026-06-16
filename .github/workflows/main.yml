@@ -13,9 +13,30 @@ jobs:
     - name: Pobranie kodu z repozytorium
       uses: actions/checkout@v4
 
-    - name: Automatyczna naprawa adresu w manifeście na serwerze
+    - name: Generowanie czystego pliku Manifestu na serwerze
       run: |
-        sed -i 's|http://android.com|http://android.com|g' app/src/main/AndroidManifest.xml
+        cat << 'EOF' > app/src/main/AndroidManifest.xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <manifest xmlns:android="http://android.com">
+
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+            <application
+                android:allowBackup="true"
+                android:label="Stoper ESP32">
+                
+                <activity
+                    android:name="com.example.stoperimpulsow.MainActivity"
+                    android:exported="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
+            </application>
+        </manifest>
+        EOF
 
     - name: Konfiguracja Javy (JDK 17)
       uses: actions/setup-java@v4
