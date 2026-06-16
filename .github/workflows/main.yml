@@ -3,7 +3,7 @@ name: Budowanie APK Androida
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Pozwala uruchomić kompilację ręcznie przyciskiem
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,11 +19,12 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
-    - name: Pobranie i konfiguracja narzędzia Gradle
+    - name: Uruchomienie bezpiecznego budowania z Gradle 8.5
       uses: gradle/actions/setup-gradle@v3
-
-    - name: Kompilacja pliku APK (Debug)
-      run: gradle assembleDebug --gradle-version 8.5
+      with:
+        gradle-version: 8.5
+        arguments: assembleDebug
+        cache-disabled: true # Całkowicie wyłączamy wadliwy cache serwera
 
     - name: Udostępnienie gotowego pliku APK do pobrania
       uses: actions/upload-artifact@v4
