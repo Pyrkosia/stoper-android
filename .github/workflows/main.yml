@@ -23,7 +23,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
 
     - name: Kompilacja pliku APK (Debug)
-      run: gradle assembleDebug
+      run: gradle assembleDebug --gradle-version 8.5
 
     - name: Udostępnienie gotowego pliku APK do pobrania
       uses: actions/upload-artifact@v4
