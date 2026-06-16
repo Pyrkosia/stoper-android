@@ -13,6 +13,10 @@ jobs:
     - name: Pobranie kodu z repozytorium
       uses: actions/checkout@v4
 
+    - name: Automatyczna naprawa adresu w manifeście na serwerze
+      run: |
+        sed -i 's|http://android.com|http://android.com|g' app/src/main/AndroidManifest.xml
+
     - name: Konfiguracja Javy (JDK 17)
       uses: actions/setup-java@v4
       with:
@@ -24,7 +28,7 @@ jobs:
       with:
         gradle-version: 8.5
         arguments: assembleDebug
-        cache-disabled: true # Całkowicie wyłączamy wadliwy cache serwera
+        cache-disabled: true
 
     - name: Udostępnienie gotowego pliku APK do pobrania
       uses: actions/upload-artifact@v4
