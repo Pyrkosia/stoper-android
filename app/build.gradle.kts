@@ -24,7 +24,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.9.22"
+        kotlinCompilerExtensionVersion = "1.5.11"  // Compatible with Kotlin 1.9.22
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
